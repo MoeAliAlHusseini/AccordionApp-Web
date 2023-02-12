@@ -1,12 +1,22 @@
 import React from 'react';
 
+import Item from '../Item';
 
-const List = () => {
+interface ListProps {
+    items: Array<any>
+}
+
+
+const List = ({ items }: ListProps) => {
     return (
         <div>
-            <p>
-                Hello
-            </p>
+            {
+                items.map((element, index) => {
+                    return (
+                        <Item name={element.name} occupation={element.occupation} residence={element.residence} />
+                    )
+                })
+            }
         </div>
     )
 }

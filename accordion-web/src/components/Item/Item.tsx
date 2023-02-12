@@ -2,11 +2,23 @@ import React from 'react'
 
 import './Item.css'
 
-const Item = () => {
+interface ItemProps {
+    name: string,
+    occupation: string,
+    residence: string
+}
+
+const Item = ({ name, occupation, residence }: ItemProps) => {
     return (
         <div className='container'>
             <p>
-                Item!
+                {`Name: ${name}`}
+            </p>
+            <p>
+                {`Occupation: ${occupation}`}
+            </p>
+            <p>
+                {`Residence: ${residence}`}
             </p>
         </div>
     )
