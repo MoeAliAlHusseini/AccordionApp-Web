@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Item from '../../components/Item';
+import List from '../../components/List';
 
-const List = [
+const items = [
     {
         name: 'Moe',
         occupation: 'Software Engineer',
@@ -24,7 +24,7 @@ const List = [
 const Home = () => {
     return (
         <div>
-            <Item />
+            <List items={items} />
         </div>
     )
 }
