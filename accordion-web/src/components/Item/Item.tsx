@@ -3,11 +3,21 @@ import React from 'react'
 import './Item.css'
 
 interface ItemProps {
+    index: number,
     name: string,
     occupation: string,
     residence: string,
-    style?: Object,
-    className?: string
+    onItemPress(index: number): void,
+    isOpen: boolean
+}
+
+const defaultProps: ItemProps = {
+    index: 0,
+    name: 'Moe',
+    occupation: 'Engineer',
+    residence: 'UAE',
+    onItemPress: () => { },
+    isOpen: false
 }
 
 const style = {
@@ -17,9 +27,9 @@ const style = {
     }
 }
 
-const Item = ({ name, occupation, residence }: ItemProps) => {
+const Item = ({ name, occupation, residence, index, onItemPress }: ItemProps) => {
     return (
-        <div className='container' style={style.item}>
+        <div className='container' style={style.item} onClick={() => onItemPress(index)}>
             <p>
                 {`Name: ${name}`}
             </p>
@@ -32,5 +42,7 @@ const Item = ({ name, occupation, residence }: ItemProps) => {
         </div>
     )
 }
+
+Item.defaultProps = defaultProps;
 
 export default Item;
