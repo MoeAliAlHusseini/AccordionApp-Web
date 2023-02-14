@@ -15,7 +15,12 @@ const List = ({ items }: ListProps) => {
             {
                 items.map((element, index) => {
                     return (
-                        <Item key={`${element}__${index}`} name={element.name} occupation={element.occupation} residence={element.residence} />
+                        <Item key={`${element}__${index}`}
+                            index={index} name={element.name}
+                            occupation={element.occupation}
+                            residence={element.residence}
+                            onItemPress={(id) => console.log("id: ", id)}
+                        />
                     )
                 })
             }
