@@ -5,11 +5,12 @@ import Item from '../Item';
 import './List.css';
 
 interface ListProps {
-    items: Array<any>
+    items: Array<any>,
+    onItemPress(index: number): void
 }
 
 
-const List = ({ items }: ListProps) => {
+const List = ({ items, onItemPress }: ListProps) => {
     return (
         <div className='container'>
             {
@@ -19,7 +20,7 @@ const List = ({ items }: ListProps) => {
                             index={index} name={element.name}
                             occupation={element.occupation}
                             residence={element.residence}
-                            onItemPress={(id) => console.log("id: ", id)}
+                            onItemPress={onItemPress}
                         />
                     )
                 })
