@@ -24,7 +24,7 @@ const items = [
 const Home = () => {
     return (
         <div>
-            <List items={items} />
+            <List items={items} onItemPress={(id) => console.log("id: ", id)} />
         </div>
     )
 }
