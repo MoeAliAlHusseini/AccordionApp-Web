@@ -1,10 +1,13 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 
 const Details = () => {
+    const location = useLocation();
+
     return (
         <div>
             <h1>
-                Hello!
+                {`Hello ${location.state.id}`}
             </h1>
         </div>
     )
