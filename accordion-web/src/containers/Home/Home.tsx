@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from "react-router-dom";
 
 import List from '../../components/List';
 
@@ -22,9 +23,11 @@ const items = [
 
 
 const Home = () => {
+    const navigate = useNavigate();
+
     return (
         <div>
-            <List items={items} onItemPress={(id) => console.log("id: ", id)} />
+            <List items={items} onItemPress={(id) => navigate("/details")} />
         </div>
     )
 }
