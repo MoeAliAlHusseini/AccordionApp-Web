@@ -27,7 +27,11 @@ const Home = () => {
 
     return (
         <div>
-            <List items={items} onItemPress={(id) => navigate("/details")} />
+            <List items={items} onItemPress={(id) => navigate("/details", {
+                state: {
+                    id: id,
+                }
+            })} />
         </div>
     )
 }
