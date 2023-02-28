@@ -25,13 +25,17 @@ const items = [
 const Home = () => {
     const navigate = useNavigate();
 
+    const navigateTo = (id: number) => {
+        navigate("/details", {
+            state: {
+                id: id,
+            }
+        })
+    }
+
     return (
         <div>
-            <List items={items} onItemPress={(id) => navigate("/details", {
-                state: {
-                    id: id,
-                }
-            })} />
+            <List items={items} onItemPress={navigateTo} />
         </div>
     )
 }
