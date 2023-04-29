@@ -35,6 +35,9 @@ const Details = () => {
 
     return (
         <div className="Details">
+            <a href="/">
+                BACK
+            </a>
             <h1>
                 {`Hello ${titleValue}`}
             </h1>
