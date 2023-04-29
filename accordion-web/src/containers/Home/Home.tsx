@@ -1,38 +1,34 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 
-import List from '../../components/List';
+import { useDispatch, useSelector } from 'react-redux';
 
-const items = [
-    {
-        name: 'Moe',
-        occupation: 'Software Engineer',
-        residence: 'UAE'
-    },
-    {
-        name: 'Ahmad',
-        occupation: 'SDET',
-        residence: 'UAE'
-    },
-    {
-        name: 'Rami',
-        occupation: 'Product Owner',
-        residence: 'UAE'
-    }
-]
+import List from '../../components/List';
+import { setList } from '../../store/reducers/listSlice';
+
+import { useLocation } from "react-router-dom";
 
 
 const Home = () => {
     const navigate = useNavigate();
+    const list = useSelector((state: any) => state.list.list)
+    const dispatch = useDispatch();
+    const location = useLocation();
+
+
+    useEffect(() => {
+        dispatch(setList(list))
+    }, [dispatch, list, location?.state?.list])
+
 
     const navigateTo = (id: number) => {
         // we need to filter over the list and grab the object with the passed id
-        const item = items.filter((__, index) => index === id);
+        const item = list.filter((__: any, index: number) => index === id);
 
-        console.log("item: ", item)
 
         navigate("/details", {
             state: {
+                id: id,
                 name: item[0].name,
                 occupation: item[0].occupation,
                 residence: item[0].residence,
@@ -42,7 +38,7 @@ const Home = () => {
 
     return (
         <div>
-            <List items={items} onItemPress={navigateTo} />
+            <List items={list} onItemPress={navigateTo} />
         </div>
     )
 }

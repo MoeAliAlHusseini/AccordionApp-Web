@@ -1,9 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
+
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from "react-router-dom";
+
 import { useLocation } from "react-router-dom";
 
 import './Details.scss'
+import { setList } from "../../store/reducers/listSlice";
 
 const Details = () => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const list = useSelector((state: any) => state.list.list)
     const [inputValue, setInputValue] = useState('')
     const [titleValue, setTitleValue] = useState('')
 
@@ -21,23 +29,47 @@ const Details = () => {
 
     }, [location.state])
 
-    const handleButtonOnChange = (e: any) => {
+    const handleTitleValue = (e: any) => {
         const target = e.target;
         const value = target.value;
 
         setInputValue(value);
     }
 
-    const handleTitleValue = () => {
+    const handleButtonOnChange = () => {
+        const id = location.state.id
         setTitleValue(inputValue)
+
+        const updatedList = list.map((item: any, index: any) => {
+            if (index === id) {
+                return {
+                    ...item,
+                    name: inputValue
+                }
+            }
+            else {
+                return item;
+            }
+        })
+        dispatch(setList(updatedList))
+    }
+
+    const handleButtonOnBack = () => {
+        navigate("/", {
+            state: {
+                list: list
+            }
+        })
     }
 
 
     return (
         <div className="Details">
-            <a href="/">
-                BACK
-            </a>
+            <button className="Details__backButton" onClick={handleButtonOnBack}>
+                <text>
+                    BACK
+                </text>
+            </button>
             <h1>
                 {`Hello ${titleValue}`}
             </h1>
@@ -50,11 +82,11 @@ const Details = () => {
             <input
                 className="Details__input"
                 value={inputValue}
-                onChange={handleButtonOnChange}
+                onChange={handleTitleValue}
             />
             <button className="Details__button"
                 title="value"
-                onClick={handleTitleValue}
+                onClick={handleButtonOnChange}
             >
                 <text>
                     {'Press me!'}
