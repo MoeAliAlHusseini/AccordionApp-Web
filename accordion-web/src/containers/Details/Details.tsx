@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from "react-router-dom";
 
 import { useLocation } from "react-router-dom";
 
@@ -8,6 +9,7 @@ import './Details.scss'
 import { setList } from "../../store/reducers/listSlice";
 
 const Details = () => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const list = useSelector((state: any) => state.list.list)
     const [inputValue, setInputValue] = useState('')
@@ -52,12 +54,22 @@ const Details = () => {
         dispatch(setList(updatedList))
     }
 
+    const handleButtonOnBack = () => {
+        navigate("/", {
+            state: {
+                list: list
+            }
+        })
+    }
+
 
     return (
         <div className="Details">
-            <a href="/">
-                BACK
-            </a>
+            <button className="Details__backButton" onClick={handleButtonOnBack}>
+                <text>
+                    BACK
+                </text>
+            </button>
             <h1>
                 {`Hello ${titleValue}`}
             </h1>
