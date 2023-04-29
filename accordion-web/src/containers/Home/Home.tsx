@@ -6,19 +6,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import List from '../../components/List';
 import { setList } from '../../store/reducers/listSlice';
 
+import { useLocation } from "react-router-dom";
+
 
 const Home = () => {
     const navigate = useNavigate();
     const list = useSelector((state: any) => state.list.list)
     const dispatch = useDispatch();
-
+    const location = useLocation();
 
 
     useEffect(() => {
         dispatch(setList(list))
-
-        console.log("list: ", list)
-    }, [dispatch, list])
+    }, [dispatch, list, location?.state?.list])
 
 
     const navigateTo = (id: number) => {
