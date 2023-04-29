@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 
 import './Details.scss'
@@ -7,12 +7,19 @@ const Details = () => {
     const [inputValue, setInputValue] = useState('')
     const [titleValue, setTitleValue] = useState('')
 
+    const occupation = useRef('');
+    const residence = useRef('');
+
     const location = useLocation();
 
     useEffect(() => {
-        setTitleValue(location.state.id);
-        setInputValue(location.state.id);
-    }, [location.state.id])
+        setTitleValue(location.state.name);
+        setInputValue(location.state.name);
+
+        occupation.current = location.state.occupation;
+        residence.current = location.state.residence;
+
+    }, [location.state])
 
     const handleButtonOnChange = (e: any) => {
         const target = e.target;
@@ -31,6 +38,12 @@ const Details = () => {
             <h1>
                 {`Hello ${titleValue}`}
             </h1>
+            <h2>
+                {`Occupation: ${occupation.current}`}
+            </h2>
+            <h3>
+                {`Residence: ${residence.current}`}
+            </h3>
             <input
                 className="Details__input"
                 value={inputValue}

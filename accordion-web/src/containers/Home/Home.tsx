@@ -26,9 +26,16 @@ const Home = () => {
     const navigate = useNavigate();
 
     const navigateTo = (id: number) => {
+        // we need to filter over the list and grab the object with the passed id
+        const item = items.filter((__, index) => index === id);
+
+        console.log("item: ", item)
+
         navigate("/details", {
             state: {
-                id: id,
+                name: item[0].name,
+                occupation: item[0].occupation,
+                residence: item[0].residence,
             }
         })
     }
