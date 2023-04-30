@@ -1,6 +1,6 @@
 import React from 'react'
 
-import './Item.css'
+import './Item.scss'
 
 interface ItemProps {
     index: number,
