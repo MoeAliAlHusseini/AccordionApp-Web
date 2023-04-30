@@ -2,7 +2,7 @@ import React from 'react';
 
 import Item from '../Item';
 
-import './List.css';
+import './List.scss';
 
 interface ListProps {
     items: Array<any>,
