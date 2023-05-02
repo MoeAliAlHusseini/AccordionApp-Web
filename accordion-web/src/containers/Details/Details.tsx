@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
@@ -13,32 +13,50 @@ const Details = () => {
     const dispatch = useDispatch();
     const list = useSelector((state: any) => state.list.list)
     const [inputValue, setInputValue] = useState('')
-    const [titleValue, setTitleValue] = useState('')
-
-    const occupation = useRef('');
-    const residence = useRef('');
+    const [userInfo, setUserInfo] = useState({
+        title: '',
+        occupation: '',
+        residence: ''
+    })
 
     const location = useLocation();
 
     useEffect(() => {
-        setTitleValue(location.state.name);
+        setUserInfo({
+            title: location.state.name,
+            occupation: location.state.occupation,
+            residence: location.state.residence
+        });
         setInputValue(location.state.name);
 
-        occupation.current = location.state.occupation;
-        residence.current = location.state.residence;
 
     }, [location.state])
 
-    const handleTitleValue = (e: any) => {
+    const renderTitle = useMemo(() => {
+        return `Hello ${userInfo.title}`;
+    }, [userInfo.title])
+
+    const renderOccupation = useMemo(() => {
+        return `Occupation: ${userInfo.occupation}`
+    }, [userInfo.occupation])
+
+    const renderResidence = useMemo(() => {
+        return `Residence: ${userInfo.residence}`
+    }, [userInfo.residence])
+
+    const handleTitleValue = useCallback((e: any) => {
         const target = e.target;
         const value = target.value;
 
         setInputValue(value);
-    }
+    }, [])
 
     const handleButtonOnChange = () => {
         const id = location.state.id
-        setTitleValue(inputValue)
+        setUserInfo({
+            ...userInfo,
+            title: inputValue
+        });
 
         const updatedList = list.map((item: any, index: any) => {
             if (index === id) {
@@ -62,7 +80,6 @@ const Details = () => {
         })
     }
 
-
     return (
         <div className="Details">
             <button className="Details__backButton" onClick={handleButtonOnBack}>
@@ -71,13 +88,13 @@ const Details = () => {
                 </text>
             </button>
             <h1>
-                {`Hello ${titleValue}`}
+                {renderTitle}
             </h1>
             <h2>
-                {`Occupation: ${occupation.current}`}
+                {renderOccupation}
             </h2>
             <h3>
-                {`Residence: ${residence.current}`}
+                {renderResidence}
             </h3>
             <input
                 className="Details__input"
